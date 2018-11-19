@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import TodoList from './TodoList.js'
 
 const StickyDiv = styled.div`
 
@@ -20,7 +21,22 @@ z-index: ${props => props.isActive ? 1 : 0}
 box-shadow: -9px -6px 21px -15px rgba(0,0,0,0.53);
 overflow: hidden;
 
-${props => props.isActive ? `.header-container::before {
+.hide {
+  content: '__';
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  border: 1px solid lightgray;
+  padding: 2px 4px 17px;
+  line-height: 0;
+  font-weight: 1000;
+  cursor: pointer;
+  background: rgba(0,0,0,0.13);
+  display: none;
+  ${props => props.isActive ? 'display: block' : null}
+}
+
+${props => props.isActive ? `.hide {
   content: '__';
   position: absolute;
   top: 9px;
@@ -63,21 +79,32 @@ ul {
 
 li {
   list-style: none;
-  margin: 10px;
-  line-height: 1;
-  font-size: 24px;
-}
-  top: ${props => (Math.floor(props.posY / 6) * 360) + (props.posY % 6 * 15)}px;
-  left: ${props => props.posX % 6 * 195}px;
+  padding: 4px 0px;
+  line-height: 1.1;
+  font-size: 18px;
 
-  ${props => props.isActive ? `top: 100px; left: 400px; box-shadow: 0px 35px 300px 160px rgba(20,46,51,0.63); height: auto;` : null}
+  &:hover {
+    cursor: pointer;
+    color: white;
+    user-select: none;
+  }
+
+  
+}
+
+.completed {
+  color: red;
+  text-decoration: line-through;
+}
+
+  top: ${props => (Math.floor(props.posY / 5) * 360) + (props.posY % 5 * 15)}px;
+  left: ${props => props.posX % 5 * 195}px;
+
+  ${props => props.isActive ? `top: 100px; left: 400px; box-shadow: 0px 35px 300px 160px rgba(20,46,51,0.63); min-height: 330px; height: auto;` : null}
 
 `
 
-let testing = null;
 const StickyNote = props => {
-  let y = 15;
-  let x = 195;  
 
   console.log(props.passingParent, 'in child')
 
@@ -85,20 +112,22 @@ const StickyNote = props => {
     <React.Fragment>
       { props.notes.map( note => {
         return (
-          <StickyDiv onClick={(e) => props.changeActive(e, note)} isActive={note.isActive} passin={props.passingParent} posY={note.id} posX={note.id} colorSelect={note.id}>
+          <StickyDiv key={note.id} onClick={(e) => props.changeActive(e, note)}
+            isActive={note.isActive} 
+            passin={props.passingParent} 
+            posY={note.id} posX={note.id} 
+            colorSelect={note.id}>
+
             <div className='header-container'>
-              <h1 className='header'>Title</h1>
+              <div onClick={(e) => props.hide(e, note)} className='hide'>__</div>
+              <h1 className='header'>{note.category}</h1>
             </div>
+
             <div className='content'>
-              <ul>
-                <li>list of todo</li>
-                <li>list of todo's</li>
-                <li>list of todo's</li>
-                <li>list of todo's</li>
-                <li>list of todo's</li>
-                <li>list of todo's</li>
-                <li>list of todo's</li>
-              </ul>
+              <TodoList changeComplete={props.changeComplete}
+                activeId={note.id}
+                isActive={note.isActive} 
+                todoList={note.todo}/>
             </div>
           </StickyDiv>
         );
