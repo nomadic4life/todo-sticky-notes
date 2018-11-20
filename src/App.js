@@ -117,6 +117,16 @@ class App extends Component {
     })
   }
 
+  handleClearComplete = () => {
+    let update = this.state.notes.map(note => {
+      return {...note, todo: note.todo.filter(todo => !todo.completed)}
+    })
+
+    this.setState({
+      notes: [...update],
+    })
+  }
+
   render() {
     // console.log(this.refer, this.testing, 'in render')
     // console.log(this.state.setup)
@@ -148,7 +158,7 @@ class App extends Component {
               value={this.state.inputText}
               onChange={this.handleOnChange}></input>
             <button type='submit'>Add Todo</button>
-            <button>Clear Completed</button>
+            <button onClick={this.handleClearComplete}>Clear Completed</button>
           </form>
 
         </div>
