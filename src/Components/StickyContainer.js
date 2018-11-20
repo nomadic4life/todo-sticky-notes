@@ -100,7 +100,7 @@ li {
   top: ${props => (Math.floor(props.posY / 5) * 360) + (props.posY % 5 * 15)}px;
   left: ${props => props.posX % 5 * 195}px;
 
-  ${props => props.isActive ? `top: 100px; left: 400px; box-shadow: 0px 35px 300px 160px rgba(20,46,51,0.63); min-height: 330px; height: auto;` : null}
+  ${props => props.isActive ? `position: fixed; top: 240px; left: 760px; box-shadow: 0px 35px 300px 160px rgba(20,46,51,0.63); min-height: 330px; height: auto;` : null}
 
 `
 

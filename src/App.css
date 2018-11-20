@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: whitesmoke;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -7,9 +15,38 @@
 .sidebar {
   width: 300px;
   height: 100vh;
-  border: 1px solid green;
   background: grey;
+  background: #E2E2E1;
   position: fixed;
+  padding: 1%;
+}
+
+button {
+  width: 70%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 18px;
+  border: 1px solid black;
+  background: white; 
+  cursor: pointer;
+}
+
+button:hover {
+  border: 1px solid white;
+  background: darkslategrey;
+  color: white;
+  transition: .2s;
+}
+
+input {
+  margin-top: 66px;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid black;
+}
+
+input[type="text"] {
+    font-size:24px;
 }
 
 .container {
@@ -26,7 +63,6 @@
 
 .sticky-container {
   position: relative;
-  border: 1px solid green;
   min-width: 900px;
   flex-grow: 1;
 }
